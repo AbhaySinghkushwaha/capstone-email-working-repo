@@ -1,0 +1,778 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> SupplyFlow Nexus - Login with OTP, Captcha, Email verification Bug fix
+<main class="wholesaler-page">
+
+  <section class="dashboard-shell">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="brand-area">
+        <div class="brand-logo">W</div>
+
+        <div>
+          <span class="brand-pill">WHOLESALER PORTAL</span>
+          <h1>Nexus</h1>
+          <p>
+            Place manufacturer purchase orders, manage inventory, fulfil customer orders,
+            and review feedback.
+          </p>
+        </div>
+      </div>
+
+      <nav class="side-nav">
+        <button
+          class="nav-link"
+          [class.active]="activeSection === 'overview'"
+          type="button"
+          (click)="showSection('overview')">
+          <span class="nav-icon">▦</span>
+          Overview
+        </button>
+
+        <button
+          class="nav-link"
+          [class.active]="activeSection === 'products'"
+          type="button"
+          (click)="showSection('products')">
+          <span class="nav-icon">▣</span>
+          Products
+        </button>
+
+        <button
+          class="nav-link"
+          [class.active]="activeSection === 'purchaseOrders'"
+          type="button"
+          (click)="showSection('purchaseOrders')">
+          <span class="nav-icon">🛒</span>
+          Purchase Orders
+        </button>
+
+        <button
+          class="nav-link"
+          [class.active]="activeSection === 'inventory'"
+          type="button"
+          (click)="showSection('inventory')">
+          <span class="nav-icon">▤</span>
+          Inventory
+        </button>
+
+        <button
+          class="nav-link"
+          [class.active]="activeSection === 'customerOrders'"
+          type="button"
+          (click)="showSection('customerOrders')">
+          <span class="nav-icon">👥</span>
+          Customer Orders
+        </button>
+
+        <button
+          class="nav-link"
+          [class.active]="activeSection === 'feedbacks'"
+          type="button"
+          (click)="showSection('feedbacks')">
+          <span class="nav-icon">★</span>
+          Feedbacks
+        </button>
+      </nav>
+
+      <div class="secure-status">
+        <span></span>
+        JWT secured wholesaler access
+      </div>
+    </aside>
+
+    <!-- MAIN PANEL -->
+    <section class="main-panel">
+
+      <!-- TOPBAR -->
+      <header class="topbar">
+        <div>
+          <span class="page-kicker">SupplyFlow Nexus</span>
+          <h2>Wholesaler Dashboard</h2>
+          <p>Manage manufacturer purchase orders, inventory, and consumer fulfilment.</p>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="user-chip">
+            <div class="avatar">W</div>
+            <div>
+              <span>Wholesaler</span>
+              <small>WHOLESALER</small>
+            </div>
+          </div>
+
+          <button class="ghost-btn" type="button" (click)="refreshDashboard()">
+            Refresh
+          </button>
+
+          <button class="danger-btn" type="button" (click)="logout()">
+            Logout
+          </button>
+        </div>
+      </header>
+
+      <!-- TOAST -->
+      <div
+        class="toast"
+        [class.show]="toastVisible"
+        [class.error]="toastError">
+        {{ toastMessage }}
+      </div>
+
+      <!-- LOADING -->
+      <div class="loading-state" *ngIf="loading">
+        Loading dashboard...
+      </div>
+
+      <!-- OVERVIEW -->
+      <section
+        class="content-section"
+        [class.active-section]="activeSection === 'overview'">
+
+        <div class="stats-grid">
+
+          <article class="stat-card">
+            <div class="stat-icon blue">▣</div>
+            <div>
+              <p>Available Products</p>
+              <h3>{{ products.length }}</h3>
+            </div>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-icon cyan">🛒</div>
+            <div>
+              <p>Purchase Orders</p>
+              <h3>{{ purchaseOrders.length }}</h3>
+            </div>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-icon purple">▤</div>
+            <div>
+              <p>Inventory Stock</p>
+              <h3>{{ totalInventoryStock }}</h3>
+            </div>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-icon green">👥</div>
+            <div>
+              <p>Customer Orders</p>
+              <h3>{{ customerOrders.length }}</h3>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="overview-grid">
+
+          <article class="glass-card">
+            <span class="section-label">Purchase Flow</span>
+            <h3>Buy From Manufacturer</h3>
+            <p class="muted-text">
+              Browse manufacturer products and place purchase orders.
+              Manufacturer will update order status.
+            </p>
+
+            <button
+              class="primary-btn"
+              type="button"
+              (click)="showSection('products')">
+              Browse Products
+            </button>
+          </article>
+
+          <article class="glass-card">
+            <span class="section-label">Consumer Flow</span>
+            <h3>Fulfil Customer Orders</h3>
+            <p class="muted-text">
+              View consumer orders placed against your inventory and update delivery status.
+            </p>
+
+            <button
+              class="secondary-btn"
+              type="button"
+              (click)="showSection('customerOrders')">
+              View Customer Orders
+            </button>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- PRODUCTS -->
+      <section
+        class="content-section"
+        [class.active-section]="activeSection === 'products'">
+
+        <div class="section-header">
+          <div>
+            <span class="section-label">Manufacturer Catalogue</span>
+            <h3>Available Products</h3>
+            <p>Place purchase orders to manufacturers. Status will default to PENDING.</p>
+          </div>
+
+          <div class="search-panel">
+            <div class="search-box">
+              <span>🔍</span>
+
+              <input
+                type="text"
+                placeholder="Search products..."
+                autocomplete="off"
+                [value]="productSearch"
+                (input)="onProductSearch($any($event.target).value)"
+              />
+
+              <button
+                class="search-clear-btn"
+                type="button"
+                *ngIf="productSearch"
+                (click)="clearProductSearch()">
+                ×
+              </button>
+            </div>
+
+            <small class="search-result-text">
+              <span *ngIf="!productSearch">
+                Showing all products ({{ products.length }})
+              </span>
+
+              <span *ngIf="productSearch">
+                {{ filteredProducts.length }} product(s) found for "{{ productSearch }}"
+              </span>
+            </small>
+          </div>
+        </div>
+
+        <div class="products-grid">
+
+          <article
+            class="product-card"
+            *ngFor="let product of filteredProducts">
+
+            <div class="product-top">
+<<<<<<< HEAD
+              <div class="product-icon">📦</div>
+
+=======
+             <div class="product-image-box">
+  <img
+    *ngIf="product.imageUrl"
+    [src]="getImageUrl(product.imageUrl)"
+    alt="product"
+    class="product-card-img"
+  />
+
+  <div *ngIf="!product.imageUrl" class="product-icon">
+    📦
+  </div>
+</div>
+>>>>>>> SupplyFlow Nexus - Login with OTP, Captcha, Email verification Bug fix
+              <span class="stock-badge">
+                {{ product.stockQuantity || 0 }} manufacturer stock
+              </span>
+            </div>
+
+            <h4>{{ product.name || 'Unnamed Product' }}</h4>
+
+            <p>
+              {{ product.description || 'No product description available.' }}
+            </p>
+
+            <div class="product-meta">
+              <div class="meta-box">
+                <span>Price</span>
+                <strong>{{ formatCurrency(product.price) }}</strong>
+              </div>
+
+              <div class="meta-box">
+                <span>Product ID</span>
+                <strong>#{{ product.id }}</strong>
+              </div>
+            </div>
+
+            <div class="product-actions">
+              <button
+                class="action-btn order-now-btn"
+                type="button"
+                (click)="openOrderDrawer(product)">
+                Place Purchase Order
+              </button>
+
+<<<<<<< HEAD
+              <button
+                class="action-btn inventory-now-btn"
+                type="button"
+                (click)="selectProductForInventory(product)">
+                Add Inventory
+              </button>
+=======
+           <button
+  class="action-btn inventory-now-btn"
+  type="button"
+  (click)="showSection('inventory')">
+  View Inventory
+</button>
+>>>>>>> SupplyFlow Nexus - Login with OTP, Captcha, Email verification Bug fix
+            </div>
+          </article>
+
+          <div
+            class="empty-state"
+            *ngIf="filteredProducts.length === 0">
+            No products found.
+          </div>
+
+        </div>
+      </section>
+
+      <!-- PURCHASE ORDERS -->
+      <section
+        class="content-section"
+        [class.active-section]="activeSection === 'purchaseOrders'">
+
+        <div class="section-header">
+          <div>
+            <span class="section-label">Orders To Manufacturer</span>
+            <h3>My Purchase Orders</h3>
+            <p>Manufacturer updates these statuses. You can only view them here.</p>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Product</th>
+                  <th>Quantity</th>
+                  <th>Status</th>
+                  <th>Meaning</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let order of purchaseOrders">
+                  <td>#{{ order.id }}</td>
+
+                  <td>{{ getProductName(order.product) }}</td>
+
+                  <td>{{ order.quantity || 0 }}</td>
+
+                  <td>
+                    <span
+                      class="status-pill"
+                      [ngClass]="getStatusClass(order.status)">
+                      {{ normalizeStatus(order.status) }}
+                    </span>
+                  </td>
+
+                  <td>
+                    <span
+                      class="status-help"
+                      *ngIf="normalizeStatus(order.status) === 'PENDING'">
+                      Waiting for manufacturer.
+                    </span>
+
+                    <span
+                      class="status-help"
+                      *ngIf="normalizeStatus(order.status) === 'SHIPPED'">
+                      Manufacturer has dispatched/processed it.
+                    </span>
+
+                    <span
+                      class="status-help"
+                      *ngIf="normalizeStatus(order.status) === 'DELIVERED'">
+                      Delivered. Inventory should be updated.
+                    </span>
+
+                    <span
+                      class="status-help"
+                      *ngIf="normalizeStatus(order.status) === 'CANCELLED'">
+                      Cancelled by manufacturer.
+                    </span>
+                  </td>
+                </tr>
+
+                <tr *ngIf="purchaseOrders.length === 0">
+                  <td colspan="5">
+                    <div class="empty-state">
+                      No purchase orders available.
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+<<<<<<< HEAD
+      <!-- INVENTORY -->
+      <section
+        class="content-section"
+        [class.active-section]="activeSection === 'inventory'">
+
+        <div class="section-header">
+          <div>
+            <span class="section-label">Wholesaler Stock</span>
+            <h3>Inventory Records</h3>
+            <p>This inventory is visible to consumers for ordering.</p>
+          </div>
+        </div>
+
+        <div class="inventory-layout">
+
+          <form
+            class="form-card"
+            (ngSubmit)="submitInventory()">
+
+            <div class="form-header">
+              <span class="form-badge">Inventory Form</span>
+              <h3>{{ editingInventoryId ? 'Update Inventory' : 'Add Inventory' }}</h3>
+            </div>
+
+            <div class="form-group">
+              <label>Product</label>
+
+              <div class="input-control select-control">
+                <select
+                  [value]="inventoryProductId || ''"
+                  (change)="setInventoryProductId($any($event.target).value)">
+
+                  <option value="">Select Product</option>
+
+                  <option
+                    *ngFor="let product of products"
+                    [value]="product.id">
+                    {{ product.name || ('Product #' + product.id) }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Stock Quantity</label>
+
+              <div class="input-control">
+                <input
+                  type="number"
+                  min="1"
+                  step="1"
+                  placeholder="Enter stock quantity"
+                  [value]="inventoryStock || ''"
+                  (input)="setInventoryStock($any($event.target).value)"
+                />
+              </div>
+            </div>
+
+            <button
+              class="submit-btn"
+              type="submit">
+              {{ editingInventoryId ? 'Update Inventory' : 'Add Inventory' }}
+            </button>
+
+            <button
+              class="clear-btn"
+              type="button"
+              (click)="resetInventoryForm()">
+              Clear Form
+            </button>
+          </form>
+
+          <div class="table-card">
+            <div class="responsive-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Inventory ID</th>
+                    <th>Product</th>
+                    <th>Stock Quantity</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let inventory of inventories">
+                    <td>#{{ inventory.id }}</td>
+
+                    <td>{{ getProductName(inventory.product) }}</td>
+
+                    <td>{{ inventory.stockQuantity || 0 }}</td>
+
+                    <td>
+                      <button
+                        class="small-btn"
+                        type="button"
+                        (click)="editInventory(inventory)">
+                        Edit
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr *ngIf="inventories.length === 0">
+                    <td colspan="4">
+                      <div class="empty-state">
+                        No inventory records available.
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+=======
+  <!-- INVENTORY -->
+<section
+  class="content-section inventory-section"
+  [class.active-section]="activeSection === 'inventory'">
+
+  <div class="section-header">
+    <div>
+      <span class="section-label">Wholesaler Stock</span>
+      <h3>Inventory Records</h3>
+      <p>
+        This inventory is visible to consumers for ordering. Inventory is created or increased automatically when a manufacturer marks your purchase order as DELIVERED.
+      </p>
+    </div>
+  </div>
+
+  <div class="inventory-full-width-shell">
+    <div class="table-card inventory-table-card">
+      <div class="responsive-table inventory-responsive-table">
+
+        <table class="inventory-table">
+          <thead>
+            <tr>
+              <th>Inventory ID</th>
+              <th>Product</th>
+              <th>Stock Quantity</th>
+              <th>Source</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let inventory of inventories">
+              <td>#{{ inventory.id }}</td>
+
+              <td>{{ getProductName(inventory.product) }}</td>
+
+              <td>{{ inventory.stockQuantity || 0 }}</td>
+
+              <td>
+                <span class="status-help">
+                  Added from delivered manufacturer order
+                </span>
+              </td>
+            </tr>
+
+            <tr *ngIf="inventories.length === 0">
+              <td colspan="4">
+                <div class="empty-state">
+                  No inventory records available. Inventory will appear after manufacturer delivers your purchase order.
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+
+</section>
+>>>>>>> SupplyFlow Nexus - Login with OTP, Captcha, Email verification Bug fix
+      <!-- CUSTOMER ORDERS -->
+      <section
+        class="content-section"
+        [class.active-section]="activeSection === 'customerOrders'">
+
+        <div class="section-header">
+          <div>
+            <span class="section-label">Consumer Orders</span>
+            <h3>Customer Orders Received</h3>
+            <p>These orders are placed by consumers from your inventory. You update their status.</p>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="responsive-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Consumer</th>
+                  <th>Product</th>
+                  <th>Quantity</th>
+                  <th>Current Status</th>
+                  <th>Update Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let order of customerOrders">
+                  <td>#{{ order.id }}</td>
+
+                  <td>{{ getUserName(order.user) }}</td>
+
+                  <td>{{ getProductName(order.product) }}</td>
+
+                  <td>{{ order.quantity || 0 }}</td>
+
+                  <td>
+                    <span
+                      class="status-pill"
+                      [ngClass]="getStatusClass(order.status)">
+                      {{ normalizeStatus(order.status) }}
+                    </span>
+                  </td>
+
+                  <td>
+                    <select
+                      class="status-select"
+                      [value]="order.selectedStatus"
+                      (change)="order.selectedStatus = $any($event.target).value">
+
+                      <option
+                        *ngFor="let status of statuses"
+                        [value]="status">
+                        {{ status }}
+                      </option>
+                    </select>
+                  </td>
+
+                  <td>
+                    <button
+                      class="small-btn"
+                      type="button"
+                      (click)="updateCustomerOrderStatus(order)">
+                      Update
+                    </button>
+                  </td>
+                </tr>
+
+                <tr *ngIf="customerOrders.length === 0">
+                  <td colspan="7">
+                    <div class="empty-state">
+                      No customer orders received.
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEEDBACKS -->
+      <section
+        class="content-section"
+        [class.active-section]="activeSection === 'feedbacks'">
+
+        <div class="section-header">
+          <div>
+            <span class="section-label">Consumer Feedback</span>
+            <h3>Product Feedbacks</h3>
+            <p>Feedback submitted by consumers for delivered orders from your inventory.</p>
+          </div>
+        </div>
+
+        <div class="feedback-grid">
+
+          <article
+            class="feedback-card"
+            *ngFor="let feedback of feedbacks">
+
+            <div class="feedback-top">
+              <strong>Feedback #{{ feedback.id }}</strong>
+              <span>{{ feedback.timestamp || 'No timestamp' }}</span>
+            </div>
+
+            <p>{{ feedback.content || 'No feedback content.' }}</p>
+
+            <small>
+              Order: #{{ feedback.order?.id || 'N/A' }}
+              · Product: {{ getProductName(feedback.order?.product) }}
+              · Consumer: {{ getUserName(feedback.user) }}
+            </small>
+          </article>
+
+          <div
+            class="empty-state"
+            *ngIf="feedbacks.length === 0">
+            No feedbacks available yet.
+          </div>
+
+        </div>
+      </section>
+
+    </section>
+  </section>
+
+  <!-- ORDER DRAWER -->
+  <aside
+    class="order-drawer"
+    [class.open]="orderDrawerOpen">
+
+    <div class="drawer-card">
+      <button
+        class="drawer-close"
+        type="button"
+        (click)="closeOrderDrawer()">
+        ×
+      </button>
+
+      <div class="form-header">
+        <span class="form-badge">Purchase Order</span>
+        <h3>Order From Manufacturer</h3>
+
+        <p>
+          {{
+            selectedProduct
+              ? selectedProduct.name + ' selected. Status will be PENDING by default.'
+              : 'Select a product to continue.'
+          }}
+        </p>
+      </div>
+
+      <form (ngSubmit)="placeWholesalerOrder()">
+        <div class="form-group">
+          <label>Quantity</label>
+
+          <div class="input-control">
+            <input
+              type="number"
+              min="1"
+              step="1"
+              placeholder="Enter order quantity"
+              [value]="orderQuantity || ''"
+              (input)="setOrderQuantity($any($event.target).value)"
+            />
+          </div>
+        </div>
+
+        <button
+          class="submit-btn"
+          type="submit">
+          Place Purchase Order
+        </button>
+      </form>
+    </div>
+  </aside>
+
+<<<<<<< HEAD
+</main>
+=======
+</main>
+>>>>>>> SupplyFlow Nexus - Login with OTP, Captcha, Email verification Bug fix

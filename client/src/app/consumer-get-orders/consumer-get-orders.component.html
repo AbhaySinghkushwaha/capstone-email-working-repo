@@ -1,0 +1,272 @@
+<<<<<<< HEAD
+<main class="orders-page">
+
+  <section class="orders-shell">
+
+    <header class="page-header">
+      <span class="role-pill">CONSUMER ORDERS</span>
+      <h2>My Orders</h2>
+      <p>Track your orders. Feedback is available only after order is DELIVERED.</p>
+    </header>
+
+    <div class="message" *ngIf="message" [class.error]="messageError">
+      {{ message }}
+    </div>
+
+    <div class="table-card">
+=======
+
+<main class="orders-page">
+
+  <section class="orders-shell animate-in">
+
+    <!-- HEADER -->
+    <header class="page-header">
+      <div class="header-top">
+        <div class="header-icon-wrap"><span class="mi">receipt_long</span></div>
+        <div>
+          <span class="role-pill">CONSUMER ORDERS</span>
+          <h2>My Orders</h2>
+          <p class="muted-text">Track your orders and submit feedback after delivery.</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="back-btn" type="button" (click)="goBack()">
+          <span class="mi mi-sm">arrow_back</span> Dashboard
+        </button>
+        <button class="refresh-btn" type="button" (click)="loadOrders()">
+          <span class="mi mi-sm">refresh</span> Refresh
+        </button>
+      </div>
+    </header>
+
+    <!-- STATS ROW -->
+    <section class="order-stats-row">
+      <article class="order-stat">
+        <div class="os-icon blue"><span class="mi">receipt_long</span></div>
+        <div><span class="os-value">{{ orders.length }}</span><span class="os-label">Total</span></div>
+      </article>
+      <article class="order-stat">
+        <div class="os-icon amber"><span class="mi">schedule</span></div>
+        <div><span class="os-value">{{ pendingCount }}</span><span class="os-label">Pending</span></div>
+      </article>
+      <article class="order-stat">
+        <div class="os-icon cyan"><span class="mi">local_shipping</span></div>
+        <div><span class="os-value">{{ shippedCount }}</span><span class="os-label">Shipped</span></div>
+      </article>
+      <article class="order-stat">
+        <div class="os-icon green"><span class="mi">check_circle</span></div>
+        <div><span class="os-value">{{ deliveredCount }}</span><span class="os-label">Delivered</span></div>
+      </article>
+    </section>
+
+    <!-- MESSAGE -->
+    <div class="message" *ngIf="message" [class.error]="messageError" [class.success]="!messageError">
+      <span class="mi mi-sm">{{ messageError ? 'error' : 'check_circle' }}</span>
+      {{ message }}
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-card">
+      <div class="table-header">
+        <div>
+          <span class="section-label"><span class="mi mi-xs">receipt_long</span> Purchase History</span>
+          <h3>Order List</h3>
+        </div>
+        <span class="table-count" *ngIf="orders.length > 0">{{ orders.length }} orders</span>
+      </div>
+
+>>>>>>> SupplyFlow Nexus - Login with OTP, Captcha, Email verification Bug fix
+      <div class="responsive-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Product</th>
+              <th>Quantity</th>
+<<<<<<< HEAD
+=======
+              <th>Price</th>
+              <th>Total</th>
+>>>>>>> SupplyFlow Nexus - Login with OTP, Captcha, Email verification Bug fix
+              <th>Status</th>
+              <th>Feedback</th>
+            </tr>
+          </thead>
+
+          <tbody>
+<<<<<<< HEAD
+            <tr *ngFor="let order of orders">
+              <td>#{{ order.id }}</td>
+
+              <td>{{ getProductName(order.product) }}</td>
+
+              <td>{{ order.quantity || 0 }}</td>
+
+              <td>
+                <span class="status-pill" [ngClass]="getStatusClass(order.status)">
+=======
+            <tr *ngFor="let order of orders" class="table-row">
+              <td><span class="id-badge">#{{ order.id }}</span></td>
+
+            <td>
+  <div class="product-cell">
+    <div class="order-product-img-wrap">
+      <img
+        *ngIf="order.product?.imageUrl"
+        [src]="getImageUrl(order.product.imageUrl)"
+        alt="product"
+        class="order-product-img"
+      />
+
+      <div *ngIf="!order.product?.imageUrl" class="product-mini-icon">
+        <span class="mi">category</span>
+      </div>
+    </div>
+
+    <span>{{ getProductName(order.product) }}</span>
+  </div>
+</td>
+
+              <td><span class="qty-badge">{{ order.quantity || 0 }}</span></td>
+
+              <td><strong class="price-text">{{ formatCurrency(getProductPrice(order.product)) }}</strong></td>
+
+              <td><strong class="price-text">{{ formatCurrency(getProductPrice(order.product) * (order.quantity || 0)) }}</strong></td>
+
+              <td>
+                <span class="status-pill" [ngClass]="getStatusClass(order.status)">
+                  <span class="mi mi-xs">{{ getStatusIcon(order.status) }}</span>
+>>>>>>> SupplyFlow Nexus - Login with OTP, Captcha, Email verification Bug fix
+                  {{ normalizeStatus(order.status) }}
+                </span>
+              </td>
+
+              <td>
+                <button
+<<<<<<< HEAD
+                  class="small-btn"
+                  type="button"
+                  *ngIf="normalizeStatus(order.status) === 'DELIVERED'"
+                  (click)="openFeedback(order)">
+                  Give Feedback
+                </button>
+
+                <span class="muted" *ngIf="normalizeStatus(order.status) !== 'DELIVERED'">
+                  Available after delivery
+=======
+                  class="feedback-btn"
+                  type="button"
+                  *ngIf="normalizeStatus(order.status) === 'DELIVERED'"
+                  (click)="openFeedback(order)">
+                  <span class="mi mi-sm">rate_review</span> Feedback
+                </button>
+
+                <span class="muted-label" *ngIf="normalizeStatus(order.status) !== 'DELIVERED'">
+                  <span class="mi mi-xs">lock</span> After delivery
+>>>>>>> SupplyFlow Nexus - Login with OTP, Captcha, Email verification Bug fix
+                </span>
+              </td>
+            </tr>
+
+            <tr *ngIf="loading">
+<<<<<<< HEAD
+              <td colspan="5">
+                <div class="empty-state">Loading orders...</div>
+=======
+              <td colspan="7">
+                <div class="empty-state"><span class="mi spin">refresh</span> Loading orders...</div>
+>>>>>>> SupplyFlow Nexus - Login with OTP, Captcha, Email verification Bug fix
+              </td>
+            </tr>
+
+            <tr *ngIf="!loading && orders.length === 0">
+<<<<<<< HEAD
+              <td colspan="5">
+                <div class="empty-state">No orders found.</div>
+=======
+              <td colspan="7">
+                <div class="empty-state">
+                  <span class="mi empty-icon">receipt_long</span>
+                  <p>No orders found. Start shopping!</p>
+                </div>
+>>>>>>> SupplyFlow Nexus - Login with OTP, Captcha, Email verification Bug fix
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+<<<<<<< HEAD
+    <section class="feedback-panel" *ngIf="feedbackOrderId">
+      <h3>Submit Feedback for Order #{{ feedbackOrderId }}</h3>
+
+      <textarea
+        placeholder="Write your feedback..."
+        [value]="feedbackContent"
+        (input)="setFeedbackContent($any($event.target).value)">
+      </textarea>
+
+      <div class="feedback-actions">
+        <button
+          type="button"
+          [disabled]="submitting"
+          (click)="submitFeedback()">
+=======
+    <!-- FEEDBACK PANEL -->
+    <section class="feedback-panel animate-in" *ngIf="feedbackOrderId">
+      <div class="feedback-header">
+        <div class="feedback-icon-wrap"><span class="mi">rate_review</span></div>
+        <div>
+          <span class="section-label">Feedback</span>
+          <h3>Order #{{ feedbackOrderId }}</h3>
+          <p class="muted-text" *ngIf="selectedFeedbackOrder">
+            {{ getProductName(selectedFeedbackOrder.product) }} · Qty: {{ selectedFeedbackOrder.quantity || 0 }}
+          </p>
+        </div>
+      </div>
+
+      <label class="textarea-label">Your Feedback</label>
+      <div class="textarea-wrap">
+        <textarea
+          placeholder="Share your experience with this product..."
+          [value]="feedbackContent"
+          (input)="setFeedbackContent($any($event.target).value)">
+        </textarea>
+      </div>
+
+      <div class="feedback-actions">
+        <button
+          class="submit-feedback-btn"
+          type="button"
+          [disabled]="submitting"
+          (click)="submitFeedback()">
+          <span class="mi mi-sm">{{ submitting ? 'refresh' : 'send' }}</span>
+>>>>>>> SupplyFlow Nexus - Login with OTP, Captcha, Email verification Bug fix
+          {{ submitting ? 'Submitting...' : 'Submit Feedback' }}
+        </button>
+
+        <button
+<<<<<<< HEAD
+          type="button"
+          class="cancel"
+          (click)="cancelFeedback()">
+          Cancel
+=======
+          class="cancel-feedback-btn"
+          type="button"
+          (click)="cancelFeedback()">
+          <span class="mi mi-sm">close</span> Cancel
+>>>>>>> SupplyFlow Nexus - Login with OTP, Captcha, Email verification Bug fix
+        </button>
+      </div>
+    </section>
+
+  </section>
+<<<<<<< HEAD
+
+</main>
+=======
+</main>
+>>>>>>> SupplyFlow Nexus - Login with OTP, Captcha, Email verification Bug fix

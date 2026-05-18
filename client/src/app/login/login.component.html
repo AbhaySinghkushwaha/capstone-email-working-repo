@@ -1,0 +1,414 @@
+<div class="page">
+  <section class="login-shell">
+
+    <aside class="brand-panel">
+      <div class="brand-overlay brand-overlay-1"></div>
+      <div class="brand-overlay brand-overlay-2"></div>
+
+      <div class="brand-content">
+        <div class="brand-badge">Supply Chain Management</div>
+
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2L21 7V17L12 22L3 17V7L12 2Z"></path>
+            <path d="M12 6L17 8.8V15.2L12 18L7 15.2V8.8L12 6Z"></path>
+            <path d="M7 8.8L12 11.7L17 8.8"></path>
+            <path d="M12 11.7V18"></path>
+          </svg>
+        </div>
+
+        <h1>Nexus</h1>
+        <p>
+          Securely manage logistics, inventory, orders, distribution, and
+          business operations from one professional platform.
+        </p>
+      </div>
+
+      <div class="brand-footer">
+        <span class="status-dot"></span>
+        <span>Protected access for verified Nexus users</span>
+      </div>
+    </aside>
+
+    <section class="form-panel">
+      <div class="mobile-brand">
+        <div class="mobile-brand-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2L21 7V17L12 22L3 17V7L12 2Z"></path>
+            <path d="M12 6L17 8.8V15.2L12 18L7 15.2V8.8L12 6Z"></path>
+          </svg>
+        </div>
+        <span>Nexus</span>
+      </div>
+
+      <div class="form-card">
+<<<<<<< HEAD
+        <div class="form-header">
+          <span class="form-chip">Secure Login</span>
+          <h2>Welcome back</h2>
+          <p>Enter your credentials, captcha, and OTP to continue.</p>
+        </div>
+
+        <form [formGroup]="itemForm" (ngSubmit)="submit()" novalidate>
+
+          <!-- Username -->
+          <div class="field-group">
+            <label>Username</label>
+            <div class="input-wrap">
+              <span class="input-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M20 21V19C20 16.8 18.2 15 16 15H8C5.8 15 4 16.8 4 19V21"></path>
+                  <path d="M12 11C14.2 11 16 9.2 16 7C16 4.8 14.2 3 12 3C9.8 3 8 4.8 8 7C8 9.2 9.8 11 12 11Z"></path>
+                </svg>
+              </span>
+              <input type="text" formControlName="username" placeholder="Enter username">
+            </div>
+            <small class="error-text"
+              *ngIf="itemForm.controls['username'].invalid && itemForm.controls['username'].touched">
+              Username is required.
+            </small>
+          </div>
+
+          <!-- Password -->
+          <div class="field-group">
+            <label>Password</label>
+            <div class="input-wrap password-wrap">
+              <span class="input-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M7 11V8C7 5.2 9.2 3 12 3C14.8 3 17 5.2 17 8V11"></path>
+                  <path d="M6 11H18C19.1 11 20 11.9 20 13V20C20 21.1 19.1 22 18 22H6C4.9 22 4 21.1 4 20V13C4 11.9 4.9 11 6 11Z"></path>
+                  <path d="M12 16V18"></path>
+                </svg>
+              </span>
+              <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Enter password">
+              <button type="button" class="password-toggle" (click)="togglePassword()">
+                <svg viewBox="0 0 24 24">
+                  <path d="M1.5 12S5.5 5 12 5S22.5 12 22.5 12S18.5 19 12 19S1.5 12 1.5 12Z"></path>
+                  <path d="M12 15C13.7 15 15 13.7 15 12C15 10.3 13.7 9 12 9C10.3 9 9 10.3 9 12C9 13.7 10.3 15 12 15Z"></path>
+                </svg>
+              </button>
+            </div>
+            <small class="error-text"
+              *ngIf="itemForm.controls['password'].invalid && itemForm.controls['password'].touched">
+              Password is required.
+            </small>
+          </div>
+
+          <!-- Captcha -->
+          <div class="captcha-card">
+            <div class="captcha-header">
+              <div>
+                <label>Captcha Verification</label>
+                <p>Type the code shown below.</p>
+              </div>
+              <button type="button" class="refresh-btn" (click)="generateCaptcha()">
+                <svg viewBox="0 0 24 24">
+                  <path d="M21 12A9 9 0 0 1 6.6 19.2"></path>
+                  <path d="M3 12A9 9 0 0 1 17.4 4.8"></path>
+                  <path d="M17 9V4H22"></path>
+                  <path d="M7 15V20H2"></path>
+                </svg>
+              </button>
+            </div>
+
+            <div class="captcha-display">
+              <span class="captcha-char"
+                *ngFor="let item of captchaCharsDisplay; trackBy: trackByIndex"
+                [ngStyle]="item.style">
+                {{ item.char }}
+              </span>
+            </div>
+
+            <div class="captcha-row">
+              <div class="input-wrap captcha-input-wrap">
+                <span class="input-icon">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2L20 6V12C20 17 16.5 20.5 12 22C7.5 20.5 4 17 4 12V6L12 2Z"></path>
+                    <path d="M9 12L11 14L15 10"></path>
+                  </svg>
+                </span>
+                <input type="text" [value]="captchaInput"
+                  (input)="captchaInput = $any($event.target).value; onCaptchaInputChange()"
+                  maxlength="6" placeholder="Enter captcha">
+              </div>
+              <button type="button" class="check-btn" (click)="verifyCaptcha()">Check</button>
+            </div>
+
+            <small class="captcha-message" [ngClass]="captchaMessageType">
+              {{ captchaMessage }}
+            </small>
+          </div>
+
+          <!-- OTP (visible only after captchaVerified) -->
+          <div class="otp-card" *ngIf="captchaVerified">
+            <div class="otp-card-header">
+              <div class="otp-card-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 6H20V18H4V6Z"></path>
+                  <path d="M4 7L12 13L20 7"></path>
+                </svg>
+              </div>
+              <div>
+                <label>OTP Verification</label>
+                <p>Enter the 6-digit code sent to your email.</p>
+              </div>
+            </div>
+
+            <div class="otp-boxes" (paste)="onOtpPaste($event)">
+              <input
+                #otpBox
+                *ngFor="let d of otpDigits; let i = index; trackBy: trackByIndex"
+                class="otp-digit"
+                [class.filled]="otpDigits[i] !== ''"
+                [value]="otpDigits[i]"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                maxlength="1"
+                autocomplete="one-time-code"
+                (keydown)="onOtpKeyDown($event, i)"
+                (input)="onOtpInput($event, i)"
+                [attr.aria-label]="'Digit ' + (i + 1)">
+            </div>
+          </div>
+
+          <!-- Options -->
+          <div class="form-options">
+            <label class="remember-box">
+              <input type="checkbox">
+              <span>Remember me</span>
+            </label>
+            <a class="forgot-link" (click)="$event.preventDefault()">Forgot password?</a>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="login-btn" [disabled]="loginLoading">
+            <span>{{ loginLoading ? 'Signing in...' : 'Login' }}</span>
+            <svg viewBox="0 0 24 24" *ngIf="!loginLoading">
+=======
+
+        <!-- ========================================= -->
+        <!-- ============= LOGIN VIEW ================ -->
+        <!-- ========================================= -->
+        <div *ngIf="!showOtpView">
+          <div class="form-header">
+            <span class="form-chip">Secure Login</span>
+            <h2>Welcome back</h2>
+            <p>Enter your username, password, and captcha verification code to continue.</p>
+          </div>
+
+          <form [formGroup]="itemForm" (ngSubmit)="submit()" novalidate>
+
+            <div class="field-group">
+              <label>Username</label>
+              <div class="input-wrap">
+                <span class="input-icon">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M20 21V19C20 16.8 18.2 15 16 15H8C5.8 15 4 16.8 4 19V21"></path>
+                    <path d="M12 11C14.2 11 16 9.2 16 7C16 4.8 14.2 3 12 3C9.8 3 8 4.8 8 7C8 9.2 9.8 11 12 11Z"></path>
+                  </svg>
+                </span>
+                <input type="text" formControlName="username" placeholder="Enter username">
+              </div>
+              <small class="error-text"
+                *ngIf="itemForm.controls['username'].invalid && itemForm.controls['username'].touched">
+                Username is required.
+              </small>
+            </div>
+
+            <div class="field-group">
+              <label>Password</label>
+              <div class="input-wrap password-wrap">
+                <span class="input-icon">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M7 11V8C7 5.2 9.2 3 12 3C14.8 3 17 5.2 17 8V11"></path>
+                    <path d="M6 11H18C19.1 11 20 11.9 20 13V20C20 21.1 19.1 22 18 22H6C4.9 22 4 21.1 4 20V13C4 11.9 4.9 11 6 11Z"></path>
+                    <path d="M12 16V18"></path>
+                  </svg>
+                </span>
+                <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Enter password">
+                <button type="button" class="password-toggle" (click)="togglePassword()">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M1.5 12S5.5 5 12 5S22.5 12 22.5 12S18.5 19 12 19S1.5 12 1.5 12Z"></path>
+                    <path d="M12 15C13.7 15 15 13.7 15 12C15 10.3 13.7 9 12 9C10.3 9 9 10.3 9 12C9 13.7 10.3 15 12 15Z"></path>
+                  </svg>
+                </button>
+              </div>
+              <small class="error-text"
+                *ngIf="itemForm.controls['password'].invalid && itemForm.controls['password'].touched">
+                Password is required.
+              </small>
+            </div>
+
+            <div class="captcha-card">
+              <div class="captcha-header">
+                <div>
+                  <label>Captcha Verification</label>
+                  <p>Type the code shown below.</p>
+                </div>
+                <button type="button" class="refresh-btn" (click)="generateCaptcha()">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M21 12A9 9 0 0 1 6.6 19.2"></path>
+                    <path d="M3 12A9 9 0 0 1 17.4 4.8"></path>
+                    <path d="M17 9V4H22"></path>
+                    <path d="M7 15V20H2"></path>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="captcha-display">
+                <span class="captcha-char"
+                  *ngFor="let item of captchaCharsDisplay; trackBy: trackByIndex"
+                  [ngStyle]="item.style">
+                  {{ item.char }}
+                </span>
+              </div>
+
+              <div class="captcha-row">
+                <div class="input-wrap captcha-input-wrap">
+                  <span class="input-icon">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 2L20 6V12C20 17 16.5 20.5 12 22C7.5 20.5 4 17 4 12V6L12 2Z"></path>
+                      <path d="M9 12L11 14L15 10"></path>
+                    </svg>
+                  </span>
+                  <input type="text" [value]="captchaInput"
+                    (input)="captchaInput = $any($event.target).value; onCaptchaInputChange()"
+                    maxlength="6" placeholder="Enter captcha">
+                </div>
+                <button type="button" class="check-btn" (click)="verifyCaptcha()">Check</button>
+              </div>
+
+              <small class="captcha-message" [ngClass]="captchaMessageType">
+                {{ captchaMessage }}
+              </small>
+            </div>
+
+            <div class="form-options">
+              <label class="remember-box">
+                <input type="checkbox">
+                <span>Remember me</span>
+              </label>
+              <a class="forgot-link" (click)="$event.preventDefault()">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="login-btn" [disabled]="loginLoading">
+              <span>{{ loginLoading ? 'Signing in...' : 'Login' }}</span>
+              <svg viewBox="0 0 24 24" *ngIf="!loginLoading">
+                <path d="M5 12H19"></path>
+                <path d="M13 6L19 12L13 18"></path>
+              </svg>
+            </button>
+
+            <p class="form-message" [ngClass]="{ error: formMessageError }">
+              {{ formMessage }}
+            </p>
+          </form>
+
+          <p class="register-text">
+            New to Nexus?
+            <a routerLink="/registration">Create an account</a>
+          </p>
+        </div>
+
+        <!-- ========================================= -->
+        <!-- ============== OTP VIEW ================= -->
+        <!-- ========================================= -->
+        <div *ngIf="showOtpView" class="otp-view">
+
+          <div class="form-header">
+            <span class="form-chip">Email Verification</span>
+            <h2>Enter OTP</h2>
+            <p>
+              A 6-digit verification code was sent to
+              <span class="otp-email-highlight">{{ otpEmail }}</span>.
+              Enter it below to activate your account.
+            </p>
+          </div>
+
+          <div class="otp-icon-wrap">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 6H20V18H4V6Z"></path>
+              <path d="M4 7L12 13L20 7"></path>
+            </svg>
+          </div>
+
+          <div class="otp-boxes" (paste)="onOtpPaste($event)">
+            <input
+              #otpBox
+              *ngFor="let d of otpDigits; let i = index; trackBy: trackByIndex"
+              class="otp-digit"
+              [class.filled]="otpDigits[i] !== ''"
+              [value]="otpDigits[i]"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              maxlength="1"
+              autocomplete="one-time-code"
+              (keydown)="onOtpKeyDown($event, i)"
+              (input)="onOtpInput($event, i)"
+              [attr.aria-label]="'Digit ' + (i + 1)">
+          </div>
+
+          <p class="otp-timer-text" *ngIf="otpExpirySeconds > 0">
+            Code expires in <strong>{{ otpExpiryDisplay }}</strong>
+          </p>
+          <p class="otp-timer-text expired" *ngIf="otpExpirySeconds === 0">
+            Code expired — please resend a new code
+          </p>
+
+          <button type="button" class="otp-verify-btn"
+            (click)="verifyOtp()"
+            [disabled]="otpLoading || otpExpirySeconds === 0">
+            <span>{{ otpLoading ? 'Verifying...' : 'Verify & Continue' }}</span>
+            <svg viewBox="0 0 24 24" *ngIf="!otpLoading">
+>>>>>>> SupplyFlow Nexus - Login with OTP, Captcha, Email verification Bug fix
+              <path d="M5 12H19"></path>
+              <path d="M13 6L19 12L13 18"></path>
+            </svg>
+          </button>
+
+<<<<<<< HEAD
+          <p class="form-message" [ngClass]="{ error: formMessageError }">
+            {{ formMessage }}
+          </p>
+        </form>
+
+        <p class="register-text">
+          New to Nexus?
+          <a routerLink="/registration">Create an account</a>
+        </p>
+      </div>
+    </section>
+
+  </section>
+</div>
+=======
+          <button type="button" class="otp-resend-btn"
+            (click)="resendOtp()"
+            [disabled]="resendCooldown > 0 || otpLoading">
+            <svg viewBox="0 0 24 24">
+              <path d="M21 12A9 9 0 0 1 6.6 19.2"></path>
+              <path d="M3 12A9 9 0 0 1 17.4 4.8"></path>
+              <path d="M17 9V4H22"></path>
+              <path d="M7 15V20H2"></path>
+            </svg>
+            <span>
+              Resend Code
+              <span class="cooldown-badge" *ngIf="resendCooldown > 0">{{ resendCooldown }}s</span>
+            </span>
+          </button>
+
+          <p class="otp-status" [ngClass]="otpMessageType">
+            {{ otpMessage }}
+          </p>
+
+          <p class="otp-back-text">
+            Wrong account?
+            <a (click)="backToLogin()">Go back to login</a>
+          </p>
+        </div>
+
+      </div>
+    </section>
+  </section>
+</div>
+>>>>>>> SupplyFlow Nexus - Login with OTP, Captcha, Email verification Bug fix

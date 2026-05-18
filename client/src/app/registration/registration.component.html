@@ -1,0 +1,580 @@
+<div class="register-page">
+  <section class="register-container">
+
+    <!-- LEFT BRAND PANEL -->
+    <aside class="brand-section">
+<<<<<<< HEAD
+      <div class="brand-shape shape-one"></div>
+      <div class="brand-shape shape-two"></div>
+
+      <div class="brand-top">
+        <div class="brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2L21 7V17L12 22L3 17V7L12 2Z"></path>
+            <path d="M12 6L17 8.8V15.2L12 18L7 15.2V8.8L12 6Z"></path>
+            <path d="M7 8.8L12 11.7L17 8.8"></path>
+            <path d="M12 11.7V18"></path>
+          </svg>
+        </div>
+
+        <span class="brand-pill">Supply Chain Management</span>
+
+        <h1>Nexus</h1>
+
+        <p>
+          Register your business identity and manage logistics, inventory,
+          distribution, and customer operations from one clean platform.
+        </p>
+      </div>
+
+      <div class="role-section">
+        <h2>Designed for every role</h2>
+
+        <div class="role-card">
+          <div class="role-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M3 21H21"></path>
+              <path d="M5 21V8L12 4L19 8V21"></path>
+              <path d="M9 21V14H15V21"></path>
+            </svg>
+          </div>
+
+          <div>
+            <h3>Manufacturer</h3>
+            <p>Create products, manage stock, and monitor supply flow.</p>
+          </div>
+        </div>
+
+        <div class="role-card">
+          <div class="role-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 7H20"></path>
+              <path d="M6 7V21"></path>
+              <path d="M18 7V21"></path>
+              <path d="M9 11H15"></path>
+              <path d="M9 15H15"></path>
+            </svg>
+          </div>
+
+          <div>
+            <h3>Wholesaler</h3>
+            <p>Handle bulk orders, inventory movement, and distribution.</p>
+          </div>
+        </div>
+
+        <div class="role-card">
+          <div class="role-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M6 6H21L19 14H8L6 6Z"></path>
+              <path d="M6 6L5 3H2"></path>
+            </svg>
+          </div>
+
+          <div>
+            <h3>Consumer</h3>
+            <p>Browse products, place orders, and track delivery status.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="secure-status">
+        <span></span>
+        Secure access for verified Nexus users
+=======
+      <h1>Nexus</h1>
+      <p style="margin-top: 10px; opacity: .9; line-height: 1.5;">
+        Supply Chain Management <br />
+        Register your business identity and manage workflow easily.
+      </p>
+
+      <div style="margin-top: 28px; opacity: .95; font-weight: 700;">
+        Designed for:
+        <ul style="margin-top: 10px; line-height: 1.8; font-weight: 600;">
+          <li>Manufacturer</li>
+          <li>Wholesaler</li>
+          <li>Consumer</li>
+        </ul>
+>>>>>>> SupplyFlow Nexus - Login with OTP, Captcha, Email verification Bug fix
+      </div>
+    </aside>
+
+    <!-- RIGHT FORM PANEL -->
+    <section class="form-section">
+<<<<<<< HEAD
+      <div class="mobile-brand">
+        <div class="mobile-logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2L21 7V17L12 22L3 17V7L12 2Z"></path>
+            <path d="M12 6L17 8.8V15.2L12 18L7 15.2V8.8L12 6Z"></path>
+          </svg>
+        </div>
+
+        <span>Nexus</span>
+      </div>
+
+      <div class="form-card">
+        <div class="form-header">
+          <span class="form-badge">Create Account</span>
+
+          <h2>Register your identity</h2>
+
+          <p>
+            Choose your role and create your Nexus account to start managing
+            your business workflow.
+          </p>
+        </div>
+
+        <form class="register-form" [formGroup]="itemForm" (ngSubmit)="submit()">
+
+          <!-- USERNAME -->
+          <div class="form-group">
+            <label>Username</label>
+
+            <div class="input-control">
+              <span class="input-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M20 21V19C20 16.8 18.2 15 16 15H8C5.8 15 4 16.8 4 19V21"></path>
+                  <path d="M12 11C14.2 11 16 9.2 16 7C16 4.8 14.2 3 12 3C9.8 3 8 4.8 8 7C8 9.2 9.8 11 12 11Z"></path>
+                </svg>
+              </span>
+
+              <input
+                type="text"
+                formControlName="username"
+                placeholder="Enter username"
+                autocomplete="username">
+            </div>
+
+            <small
+              class="error-text"
+              *ngIf="itemForm.controls['username'].invalid && itemForm.controls['username'].touched">
+              Username is required.
+            </small>
+          </div>
+
+          <!-- EMAIL + VERIFY BUTTON -->
+          <div class="form-group">
+            <label>Email Address</label>
+
+            <div class="email-verify-row">
+              <div class="input-control email-input-control">
+                <span class="input-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M4 6H20V18H4V6Z"></path>
+                    <path d="M4 7L12 13L20 7"></path>
+                  </svg>
+                </span>
+
+                <input
+                  type="email"
+                  formControlName="email"
+                  placeholder="Enter email address"
+                  autocomplete="email">
+              </div>
+
+              <button
+                type="button"
+                class="verify-email-btn"
+                [class.verified]="otpVerified"
+                [disabled]="verifyLoading || otpVerified"
+                (click)="sendOtp()">
+
+                <span *ngIf="verifyLoading">...</span>
+                <span *ngIf="!verifyLoading && !otpVerified">Verify</span>
+                <span *ngIf="otpVerified">Verified</span>
+              </button>
+            </div>
+
+            <small
+              class="error-text"
+              *ngIf="itemForm.controls['email'].invalid && itemForm.controls['email'].touched">
+              Valid email is required.
+            </small>
+          </div>
+
+          <!-- OTP VERIFICATION -->
+          <div class="otp-card">
+            <div class="otp-card-header">
+              <div class="otp-card-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 2L20 6V12C20 17 16.5 20.5 12 22C7.5 20.5 4 17 4 12V6L12 2Z"></path>
+                  <path d="M9 12L11 14L15 10"></path>
+                </svg>
+              </div>
+
+              <div>
+                <label>OTP Verification</label>
+                <p>Enter the 6-digit code sent to your email.</p>
+              </div>
+            </div>
+
+            <div class="otp-boxes" (paste)="onOtpPaste($event)">
+              <input
+                #otpBox
+                *ngFor="let d of otpDigits; let i = index; trackBy: trackByIndex"
+                class="otp-digit"
+                [class.filled]="otpDigits[i] !== ''"
+                [class.verified-digit]="otpVerified"
+                [value]="otpDigits[i]"
+                [disabled]="otpVerified"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                maxlength="1"
+                autocomplete="one-time-code"
+                (keydown)="onOtpKeyDown($event, i)"
+                (input)="onOtpInput($event, i)"
+                [attr.aria-label]="'Digit ' + (i + 1)">
+            </div>
+
+            <button
+              type="button"
+              class="otp-confirm-btn"
+              *ngIf="!otpVerified"
+              (click)="verifyOtp()"
+              [disabled]="otpLoading">
+
+              <span>{{ otpLoading ? 'Verifying...' : 'Confirm OTP' }}</span>
+            </button>
+
+            <div class="otp-verified-row" *ngIf="otpVerified">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 12L11 14L15 10"></path>
+                <circle cx="12" cy="12" r="10"></circle>
+              </svg>
+              <span>Email verified successfully</span>
+            </div>
+
+            <div class="otp-actions-row" *ngIf="!otpVerified">
+              <button
+                type="button"
+                class="otp-resend-link"
+                (click)="sendOtp()"
+                [disabled]="verifyLoading">
+                Resend Code
+              </button>
+            </div>
+
+            <p class="otp-msg" [ngClass]="otpMessageType" *ngIf="otpMessage">
+              {{ otpMessage }}
+            </p>
+          </div>
+
+          <div class="form-grid">
+
+            <!-- PHONE -->
+            <div class="form-group">
+              <label>Phone Number</label>
+
+              <div class="input-control">
+                <span class="input-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M22 16.92V19.92C22 20.52 21.52 21 20.92 21C11.52 21 3 12.48 3 3.08C3 2.48 3.48 2 4.08 2H7.08"></path>
+                  </svg>
+                </span>
+
+                <input
+                  type="tel"
+                  [value]="phone"
+                  (input)="phone = $any($event.target).value"
+                  placeholder="Phone number"
+                  autocomplete="tel">
+              </div>
+            </div>
+
+            <!-- ROLE -->
+            <div class="form-group">
+              <label>Select Role</label>
+
+              <div class="input-control select-control">
+                <span class="input-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 3L20 7.5V16.5L12 21L4 16.5V7.5L12 3Z"></path>
+                    <path d="M8 10L12 12.5L16 10"></path>
+                  </svg>
+                </span>
+
+                <select formControlName="role">
+                  <option value="" disabled>Select role</option>
+                  <option value="MANUFACTURER">Manufacturer</option>
+                  <option value="WHOLESALER">Wholesaler</option>
+                  <option value="CONSUMER">Consumer</option>
+                </select>
+              </div>
+
+              <small
+                class="error-text"
+                *ngIf="itemForm.controls['role'].invalid && itemForm.controls['role'].touched">
+                Role is required.
+              </small>
+            </div>
+          </div>
+
+          <!-- PASSWORD -->
+          <div class="form-group">
+            <label>Password</label>
+
+            <div class="input-control password-control">
+              <span class="input-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M7 11V8C7 5.2 9.2 3 12 3C14.8 3 17 5.2 17 8V11"></path>
+                  <path d="M6 11H18C19.1 11 20 11.9 20 13V20C20 21.1 19.1 22 18 22H6C4.9 22 4 21.1 4 20V13C4 11.9 4.9 11 6 11Z"></path>
+                </svg>
+              </span>
+
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                formControlName="password"
+                placeholder="Create password"
+                autocomplete="new-password">
+
+              <button
+                type="button"
+                class="password-toggle"
+                (click)="togglePassword()"
+                [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
+                <svg viewBox="0 0 24 24">
+                  <path d="M1.5 12S5.5 5 12 5S22.5 12 22.5 12S18.5 19 12 19S1.5 12 1.5 12Z"></path>
+                  <path d="M12 15C13.7 15 15 13.7 15 12C15 10.3 13.7 9 12 9C10.3 9 9 10.3 9 12C9 13.7 10.3 15 12 15Z"></path>
+                </svg>
+              </button>
+            </div>
+
+            <small
+              class="error-text"
+              *ngIf="itemForm.controls['password'].invalid && itemForm.controls['password'].touched">
+              Password is required.
+            </small>
+          </div>
+
+          <!-- CONFIRM PASSWORD -->
+          <div class="form-group">
+            <label>Confirm Password</label>
+
+            <div class="input-control password-control">
+              <span class="input-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 12L11 14L15 10"></path>
+                  <path d="M7 11V8C7 5.2 9.2 3 12 3C14.8 3 17 5.2 17 8V11"></path>
+                </svg>
+              </span>
+
+              <input
+                [type]="showConfirmPassword ? 'text' : 'password'"
+                [value]="confirmPassword"
+                (input)="confirmPassword = $any($event.target).value"
+                placeholder="Confirm password"
+                autocomplete="new-password">
+
+              <button
+                type="button"
+                class="password-toggle"
+                (click)="toggleConfirmPassword()"
+                [attr.aria-label]="showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'">
+                <svg viewBox="0 0 24 24">
+                  <path d="M1.5 12S5.5 5 12 5S22.5 12 22.5 12S18.5 19 12 19S1.5 12 1.5 12Z"></path>
+                  <path d="M12 15C13.7 15 15 13.7 15 12C15 10.3 13.7 9 12 9C10.3 9 9 10.3 9 12C9 13.7 10.3 15 12 15Z"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <p class="form-message" [ngClass]="{ error: formMessageError }">
+            {{ formMessage }}
+          </p>
+
+          <button type="submit" class="submit-btn">
+            <span>Create Account</span>
+
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12H19"></path>
+              <path d="M13 6L19 12L13 18"></path>
+            </svg>
+          </button>
+        </form>
+
+        <p class="login-text">
+          Already have an account?
+          <a (click)="goToLogin()">Login here</a>
+        </p>
+      </div>
+=======
+
+      <form [formGroup]="itemForm" (ngSubmit)="submit()">
+
+        <!-- USERNAME -->
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" formControlName="username" placeholder="Enter username" />
+        </div>
+
+        <!-- COMPANY NAME (Optional - TS has companyName) -->
+        <div class="form-group">
+          <label>Company Name (Optional)</label>
+          <input
+            type="text"
+            [(ngModel)]="companyName"
+            [ngModelOptions]="{ standalone: true }"
+            placeholder="Enter company name" />
+        </div>
+
+        <!-- EMAIL + VERIFY -->
+        <div class="form-group">
+          <label>Email Address</label>
+
+          <div class="email-verify-row">
+            <input type="email" formControlName="email" placeholder="Enter email address" />
+
+            <button
+              type="button"
+              class="verify-email-btn"
+              (click)="sendOtp()"
+              [disabled]="verifyLoading || otpVerified || (otpSectionVisible && !canResendOtp)">
+              {{ verifyLoading ? '...' : (otpVerified ? 'Verified' : 'Verify') }}
+            </button>
+          </div>
+        </div>
+
+        <!-- ✅ OTP SECTION (shows ONLY after sendOtp() success) -->
+        <div class="otp-card" *ngIf="otpSectionVisible">
+
+          <div class="otp-card-header">
+            <label style="font-weight: 900;">OTP Verification</label>
+            <div style="font-size: 12px; color: var(--muted); font-weight: 700; margin-top: 4px;">
+              Enter the 6-digit code sent to your email.
+            </div>
+          </div>
+
+          <div class="otp-boxes" (paste)="onOtpPaste($event)">
+            <input
+              #otpBox
+              *ngFor="let d of otpDigits; let i = index; trackBy: trackByIndex"
+              class="otp-digit"
+              maxlength="1"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              [value]="otpDigits[i]"
+              [disabled]="otpVerified"
+              (input)="onOtpInput($event, i)"
+              (keydown)="onOtpKeyDown($event, i)"
+              [attr.aria-label]="'Digit ' + (i + 1)" />
+          </div>
+
+          <!-- CONFIRM OTP -->
+          <button
+            type="button"
+            class="otp-confirm-btn"
+            (click)="verifyOtp()"
+            *ngIf="!otpVerified"
+            [disabled]="otpLoading">
+            {{ otpLoading ? 'Verifying...' : 'Confirm OTP' }}
+          </button>
+
+          <!-- VERIFIED -->
+          <div class="otp-verified-row" *ngIf="otpVerified">
+            ✅ Email verified successfully
+          </div>
+
+          <!-- RESEND -->
+          <div *ngIf="!otpVerified" style="text-align: center;">
+            <button
+              type="button"
+              class="otp-resend-link"
+              (click)="sendOtp()"
+              [disabled]="verifyLoading || !canResendOtp">
+              {{ canResendOtp ? 'Resend Code' : ('Resend in ' + otpTimer + 's') }}
+            </button>
+          </div>
+
+          <!-- OTP MESSAGE -->
+          <p class="otp-msg" [ngClass]="otpMessageType" *ngIf="otpMessage">
+            {{ otpMessage }}
+          </p>
+
+        </div>
+
+        <!-- PHONE (Optional - TS has phone) -->
+        <div class="form-group">
+          <label>Phone Number (Optional)</label>
+          <input
+            type="tel"
+            [(ngModel)]="phone"
+            [ngModelOptions]="{ standalone: true }"
+            placeholder="Enter phone number" />
+        </div>
+
+        <!-- ROLE -->
+        <div class="form-group">
+          <label>Select Role</label>
+          <select formControlName="role">
+            <option [ngValue]="null" disabled>Select role</option>
+            <option [ngValue]="'MANUFACTURER'">Manufacturer</option>
+            <option [ngValue]="'WHOLESALER'">Wholesaler</option>
+            <option [ngValue]="'CONSUMER'">Consumer</option>
+          </select>
+        </div>
+
+        <!-- PASSWORD + TOGGLE -->
+        <div class="form-group">
+          <label>Password</label>
+
+          <div class="pw-row">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+              placeholder="Create password" />
+
+            <button
+              type="button"
+              class="toggle-btn"
+              (click)="togglePassword()">
+              {{ showPassword ? 'Hide' : 'Show' }}
+            </button>
+          </div>
+        </div>
+
+        <!-- CONFIRM PASSWORD + TOGGLE (TS uses confirmPassword variable) -->
+        <div class="form-group">
+          <label>Confirm Password</label>
+
+          <div class="pw-row">
+            <input
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              [(ngModel)]="confirmPassword"
+              [ngModelOptions]="{ standalone: true }"
+              placeholder="Confirm password" />
+
+            <button
+              type="button"
+              class="toggle-btn"
+              (click)="toggleConfirmPassword()">
+              {{ showConfirmPassword ? 'Hide' : 'Show' }}
+            </button>
+          </div>
+        </div>
+
+        <!-- FORM MESSAGE (matches your TS vars) -->
+        <p
+          class="form-message"
+          *ngIf="formMessage"
+          [class.success]="!formMessageError"
+          [class.error]="formMessageError">
+          {{ formMessage }}
+        </p>
+
+        <!-- SUBMIT -->
+        <button type="submit" class="submit-btn">
+          Create Account
+        </button>
+
+        <!-- LOGIN -->
+        <p style="text-align:center; margin-top: 14px; font-weight: 800; color: var(--muted);">
+          Already have an account?
+          <a (click)="goToLogin()" style="color: var(--primary); font-weight: 900;">Login here</a>
+        </p>
+
+      </form>
+
+>>>>>>> SupplyFlow Nexus - Login with OTP, Captcha, Email verification Bug fix
+    </section>
+  </section>
+</div>

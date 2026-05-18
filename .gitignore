@@ -1,0 +1,26 @@
+# Java / Maven
+target/
+server/target/
+*.class
+*.log
+
+# Angular / Node
+node_modules/
+dist/
+
+# Spring Boot secrets
+application.properties
+server/src/main/resources/application.properties
+server/src/test/resources/application.properties
+server/target/classes/application.properties
+
+# Environment / secrets
+.env
+*.env
+
+# OS files
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
